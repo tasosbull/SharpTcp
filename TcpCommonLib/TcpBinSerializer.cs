@@ -23,8 +23,8 @@ public class TcpBinSerializer
 
     // Using BinaryData for wrapping/interoperability
     public static void UseBinaryData(byte[] data)
-{
-    var binaryData = new BinaryData(data);
-    // BinaryData provides properties like ToBytes() and methods to convert to/from strings/JSON
-}
+    {
+        var binaryData = new BinaryData(data);
+        // BinaryData provides properties like ToBytes() and methods to convert to/from strings/JSON
+    }
 }
