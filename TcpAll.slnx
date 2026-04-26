@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TcpClient/TcpClient.csproj" />
+  <Project Path="TcpServer/TcpServer.csproj" />
+</Solution>
