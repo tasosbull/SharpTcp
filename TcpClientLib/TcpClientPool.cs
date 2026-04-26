@@ -16,7 +16,7 @@ public class TcpClientPool
     {
         _host = host;
         _port = port;
-        _semaphore = new SemaphoreSlim(2, 2); // limit to 2 concurrent operations
+        _semaphore = new SemaphoreSlim(initialSize, initialSize); // limit to 2 concurrent operations
 
         for (int i = 0; i < initialSize; i++)
         {
