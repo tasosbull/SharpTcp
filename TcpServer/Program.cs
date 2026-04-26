@@ -33,14 +33,14 @@ class AsyncTcpServer
             {
                 while (true)
                 {
-                    byte[] request = await Protocol.ReadMessageAsync(stream);
+                    var request = await Protocol.ReadTcpPacketAsync(stream);
 
                     if (request == null)
                         break;
 
-                    byte[] response = Handle(request);
+                    var response = Handle(request);
 
-                    await Protocol.WriteMessageAsync(stream, response);
+                    await Protocol.WriteTcpPacketAsync(stream, response);
                 }
             }
         }
@@ -52,13 +52,14 @@ class AsyncTcpServer
         Console.WriteLine("Client disconnected");
     }
 
-    private static byte[] Handle(byte[] data)
+    private static TcpPacket Handle(TcpPacket data)
     {
-        Console.WriteLine($"Received {data.Length} bytes");
+        Console.WriteLine($"Received {data.PayloadLength} bytes");
 
-        var list = new List<byte>(data);
+        var list = new List<byte>(data.Payload);
         list.Reverse();
+        return new TcpPacket(list.ToArray(), data.ClientId, data.SignatureId);
 
-        return list.ToArray();
+        
     }
 }

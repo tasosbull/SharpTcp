@@ -20,21 +20,22 @@ public class PersistentTcpClient : IDisposable
         _stream = _client.GetStream();
     }
 
-    public async Task<byte[]?> SendAsync(byte[] payload)
-{
-    await _semaphore.WaitAsync();
 
-    try
+    public async Task<TcpPacket?> SendTcpPacketAsync(TcpPacket packet)
     {
-        await Protocol.WriteMessageAsync(_stream, payload);
-        return await Protocol.ReadMessageAsync(_stream);
+        await _semaphore.WaitAsync();
+
+        try
+        {
+            await Protocol.WriteTcpPacketAsync(_stream, packet);
+            return await Protocol.ReadTcpPacketAsync(_stream);
+        }
+        finally
+        {
+            _semaphore.Release();
+        }
     }
-    finally
-    {
-        _semaphore.Release();
-    }
-}
-    
+
     public void Dispose()
     {
         _stream?.Dispose();

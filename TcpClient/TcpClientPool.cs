@@ -20,25 +20,27 @@ public class TcpClientPool
         }
     }
 
-    public async Task<byte[]?> SendAsync(byte[] data)
-{
-    await _semaphore.WaitAsync(); // limits concurrency
 
-    PersistentTcpClient? client = null;
 
-    try
+    public async Task<TcpPacket?> SendTcpPacketAsync(TcpPacket packet)
     {
-        if (!_clients.TryTake(out client))
-            client = new PersistentTcpClient(_host, _port);
+        await _semaphore.WaitAsync(); // limits concurrency
 
-        return await client.SendAsync(data);
-    }
-    finally
-    {
-        if (client != null)
-            _clients.Add(client);
+        PersistentTcpClient? client = null;
 
-        _semaphore.Release();
+        try
+        {
+            if (!_clients.TryTake(out client))
+                client = new PersistentTcpClient(_host, _port);
+
+            return await client.SendTcpPacketAsync(packet);
+        }
+        finally
+        {
+            if (client != null)
+                _clients.Add(client);
+
+            _semaphore.Release();
+        }
     }
-}
 }
