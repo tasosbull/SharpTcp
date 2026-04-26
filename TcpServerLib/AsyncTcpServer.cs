@@ -7,18 +7,23 @@ namespace TcpServerLib
     public abstract class AsyncTcpServer
     {
 
-        public async Task StartAsync(int port)
+        public async Task StartAsync(int port, CancellationToken cancellationToken = default)
         {
             var listener = new TcpListener(IPAddress.Any, port);
             listener.Start();
 
             Console.WriteLine($"Server running on port {port}");
-
-            while (true)
+            cancellationToken.Register(() => listener.Stop());
+            try
             {
-                var client = await listener.AcceptTcpClientAsync();
-                _ = HandleClientAsync(client);
+                while (true)
+                {
+                    var client = await listener.AcceptTcpClientAsync();
+                    _ = HandleClientAsync(client);
+                }
             }
+            catch (OperationCanceledException) { throw; }
+            catch (Exception) { cancellationToken.ThrowIfCancellationRequested(); }
         }
 
         private async Task HandleClientAsync(TcpClient client)
