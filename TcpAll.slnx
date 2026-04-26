@@ -1,4 +1,7 @@
 <Solution>
   <Project Path="TcpClient/TcpClient.csproj" />
+  <Project Path="TcpClientLib/TcpClientLib.csproj" />
+  <Project Path="TcpCommonLib/TcpCommonLib.csproj" />
   <Project Path="TcpServer/TcpServer.csproj" />
+  <Project Path="TcpServerLib/TcpServerLib.csproj" />
 </Solution>

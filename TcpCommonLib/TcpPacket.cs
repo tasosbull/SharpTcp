@@ -1,3 +1,6 @@
+
+namespace TcpCommonLib;
+
 public class TcpPacket
 {
     public byte[] Payload { get; set; }

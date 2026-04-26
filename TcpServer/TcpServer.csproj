@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../TcpCommonLib/TcpCommonLib.csproj" />
+    <ProjectReference Include="../TcpServerLib/TcpServerLib.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,11 @@
 using System;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using TcpCommonLib;
 
+
+
+namespace TcpClientLib;
 public class PersistentTcpClient : IDisposable
 {
     private readonly TcpClient _client;

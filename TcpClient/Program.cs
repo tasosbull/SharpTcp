@@ -3,6 +3,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using TcpClientLib;
+using TcpCommonLib;
 
 class AsyncTcpClientExample
 {
