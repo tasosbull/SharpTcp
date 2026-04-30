@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using TcpCommonLib;
 using TcpServerLib;
+using Hyper;
+
 
 public class Customer
 {
@@ -19,13 +21,13 @@ class ConcreteTcpServer : AsyncTcpServer
     public override  TcpPacket Handle(TcpPacket data)
     {
         Console.WriteLine($"Received {data.PayloadLength} bytes");
-
-        Customer? customer = System.Text.Json.JsonSerializer.Deserialize<Customer>(Encoding.UTF8.GetString(data.Payload));   
-        customer?.Name += " (processed by server)";
-        string customerJson = System.Text.Json.JsonSerializer.Serialize(customer);
-        List<byte> list = new List<byte>();
-        list.AddRange(Encoding.UTF8.GetBytes(customerJson));    
-        return new TcpPacket(list.ToArray(), data.ClientId, data.SignatureId);
+        Customer customer = HyperSerializer<Customer>.Deserialize(data.Payload);
+        //Customer? customer = System.Text.Json.JsonSerializer.Deserialize<Customer>(Encoding.UTF8.GetString(data.Payload));   
+        customer.Name += " (processed by server)";
+        
+        var customerData = HyperSerializer<Customer>.Serialize(customer);    
+        
+        return new TcpPacket(customerData.ToArray(), data.ClientId, data.SignatureId);
     }
 }
 

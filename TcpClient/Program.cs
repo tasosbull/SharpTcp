@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using TcpClientLib;
 using TcpCommonLib;
+using Hyper;
 
 
 public class Customer
@@ -34,85 +35,117 @@ class AsyncTcpClientExample
         };
 
         string customerJson = System.Text.Json.JsonSerializer.Serialize(customer);
-
+        var customerData = HyperSerializer<Customer>.Serialize(customer);
         var pool = new TcpClientPool("127.0.0.1", 5000, 3);
 
-        var packet1 = new TcpPacket(Encoding.UTF8.GetBytes(customerJson), 123, 456);
-        var packet2 = new TcpPacket(Encoding.UTF8.GetBytes(customerJson), 789, 101);
+        var packet1 = new TcpPacket(customerData.ToArray(), 123, 456);
+        var packet2 = new TcpPacket(customerData.ToArray(), 789, 101);
 
 
         TcpPacket? response1 = await pool.SendTcpPacketAsync(packet1);
         TcpPacket? response2 = await pool.SendTcpPacketAsync(packet2);
 
+
         if (response1 != null)
-            Console.WriteLine("Response 1: " + Encoding.UTF8.GetString(response1.Payload));
+        {
+            var customer1 = HyperSerializer<Customer>.Deserialize(response1?.Payload);
+            Console.WriteLine("Response 1: " + customer1.ToString());
+        }
         else
             Console.WriteLine("Response 1: null");
         if (response2 != null)
-            Console.WriteLine("Response 2: " + Encoding.UTF8.GetString(response2.Payload));
+        {
+            var customer2 = HyperSerializer<Customer>.Deserialize(response2?.Payload);
+            Console.WriteLine("Response 2: " + customer2.ToString());
+        }
         else
             Console.WriteLine("Response 2: null");
         Console.ReadLine();
+
+
         response1 = await pool.SendTcpPacketAsync(packet1);
         response2 = await pool.SendTcpPacketAsync(packet2);
 
+
         if (response1 != null)
-            Console.WriteLine("Response 1: " + Encoding.UTF8.GetString(response1.Payload));
+        {
+            var customer1 = HyperSerializer<Customer>.Deserialize(response1?.Payload);
+            Console.WriteLine("Response 1: " + customer1.ToString());
+        }
         else
             Console.WriteLine("Response 1: null");
         if (response2 != null)
-            Console.WriteLine("Response 2: " + Encoding.UTF8.GetString(response2.Payload));
+        {
+            var customer2 = HyperSerializer<Customer>.Deserialize(response2?.Payload);
+            Console.WriteLine("Response 2: " + customer2.ToString());
+        }
         else
             Console.WriteLine("Response 2: null");
         Console.ReadLine();
+
+
         response1 = await pool.SendTcpPacketAsync(packet1);
         response2 = await pool.SendTcpPacketAsync(packet2);
 
+
         if (response1 != null)
-            Console.WriteLine("Response 1: " + Encoding.UTF8.GetString(response1.Payload));
+        {
+            var customer1 = HyperSerializer<Customer>.Deserialize(response1?.Payload);
+            Console.WriteLine("Response 1: " + customer1.ToString());
+        }
         else
             Console.WriteLine("Response 1: null");
         if (response2 != null)
-            Console.WriteLine("Response 2: " + Encoding.UTF8.GetString(response2.Payload));
+        {
+            var customer2 = HyperSerializer<Customer>.Deserialize(response2?.Payload);
+            Console.WriteLine("Response 2: " + customer2.ToString());
+        }
         else
             Console.WriteLine("Response 2: null");
         Console.ReadLine();
+
         response1 = await pool.SendTcpPacketAsync(packet1);
         response2 = await pool.SendTcpPacketAsync(packet2);
 
+
         if (response1 != null)
-            Console.WriteLine("Response 1: " + Encoding.UTF8.GetString(response1.Payload));
+        {
+            var customer1 = HyperSerializer<Customer>.Deserialize(response1?.Payload);
+            Console.WriteLine("Response 1: " + customer1.ToString());
+        }
         else
             Console.WriteLine("Response 1: null");
         if (response2 != null)
-            Console.WriteLine("Response 2: " + Encoding.UTF8.GetString(response2.Payload));
+        {
+            var customer2 = HyperSerializer<Customer>.Deserialize(response2?.Payload);
+            Console.WriteLine("Response 2: " + customer2.ToString());
+        }
         else
             Console.WriteLine("Response 2: null");
         Console.ReadLine();
+
         response1 = await pool.SendTcpPacketAsync(packet1);
         response2 = await pool.SendTcpPacketAsync(packet2);
 
-        if (response1 != null)
-            Console.WriteLine("Response 1: " + Encoding.UTF8.GetString(response1.Payload));
-        else
-            Console.WriteLine("Response 1: null");
-        if (response2 != null)
-            Console.WriteLine("Response 2: " + Encoding.UTF8.GetString(response2.Payload));
-        else
-            Console.WriteLine("Response 2: null");
-        Console.ReadLine();
-        response1 = await pool.SendTcpPacketAsync(packet1);
-        response2 = await pool.SendTcpPacketAsync(packet2);
 
         if (response1 != null)
-            Console.WriteLine("Response 1: " + Encoding.UTF8.GetString(response1.Payload));
+        {
+            var customer1 = HyperSerializer<Customer>.Deserialize(response1?.Payload);
+            Console.WriteLine("Response 1: " + customer1.ToString());
+        }
         else
             Console.WriteLine("Response 1: null");
         if (response2 != null)
-            Console.WriteLine("Response 2: " + Encoding.UTF8.GetString(response2.Payload));
+        {
+            var customer2 = HyperSerializer<Customer>.Deserialize(response2?.Payload);
+            Console.WriteLine("Response 2: " + customer2.ToString());
+        }
         else
             Console.WriteLine("Response 2: null");
         Console.ReadLine();
+
+
+
 
 
     }

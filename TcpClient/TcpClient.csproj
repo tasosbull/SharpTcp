@@ -12,4 +12,8 @@
     <ProjectReference Include="../TcpCommonLib/TcpCommonLib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="HyperSerializer" Version="1.6.0" />
+  </ItemGroup>
+
 </Project>
